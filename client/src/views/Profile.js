@@ -146,7 +146,7 @@ const Profile = () => {
                     <h6 className="d-flex align-items-center mb-3">
                       Voting Stats
                     </h6>
-                    <small>Upvotes {Math.round(upVotes/(upVotes+downVotes)*100)}%</small>
+                    <small>Upvotes {Math.round(upVotes/(upVotes+downVotes)*100)?Math.round(upVotes/(upVotes+downVotes)*100):0}%</small>
                     <div className="progress mb-3" style={{ height: "5px" }}>
                       <div
                         className="progress-bar bg-primary"
@@ -157,7 +157,7 @@ const Profile = () => {
                         aria-valuemax={100}
                       />
                     </div>
-                    <small>Downvotes {Math.round(downVotes/(upVotes+downVotes)*100)}%</small>
+                    <small>Downvotes {Math.round(downVotes/(upVotes+downVotes)*100)?Math.round(downVotes/(upVotes+downVotes)*100):0}%</small>
                     <div className="progress mb-3" style={{ height: "5px" }}>
                       <div
                         className="progress-bar bg-primary"

@@ -1,4 +1,4 @@
-from flask import Flask, make_response, request, g, abort
+from flask import Flask, make_response, request, g, abort, send_from_directory
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -15,7 +15,7 @@ class Config():
         "SQLALCHEMY_TRACK_MODIFICATIONS")
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="client/build", static_url_path='')
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -23,6 +23,13 @@ basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth()
 cors = CORS(app)
 
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder,'index.html')
+
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
 
 @basic_auth.verify_password
 def verify_password(email, password):
